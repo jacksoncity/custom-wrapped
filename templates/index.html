@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Foobar2000 Wrapped</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
+  <body class="uploadBody">
+    <div class="intro">
+      <h1>Foobar2000 Wrapped</h1>
+      <p class="introText">
+        Welcome to Foobar2000 Wrapped. Get detailed information on your
+        listening habits.
+        <br />
+        Whether you dont want to bend the knee to streaming services or just
+        like listening on your local device, this page helps you gain an idea of
+        who you listen to without having to give all of your personal
+        information away.
+      </p>
+    </div>
+    <form
+      action="process.php"
+      method="POST"
+      id="fileSubmitForm"
+      class="fileSubmitForm"
+    >
+      <div>
+        <label for="fileUpload" class="fileUpload"
+          >Upload your exported .xml file here:
+        </label>
+        <br />
+        <input
+          type="file"
+          id="fileUpload"
+          name="wrappedUpload"
+          class="wrappedUpload"
+          accept=".xml"
+        />
+        <br />
+        <button
+          type="submit"
+          id="wrappedSubmit"
+          class="wrappedSubmit"
+          name="wrappedSubmit"
+        >
+          Submit
+        </button>
+      </div>
+    </form>
+    <script src="script.js"></script>
+  </body>
+</html>
