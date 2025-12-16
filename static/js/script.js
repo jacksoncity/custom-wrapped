@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const bottomDisplay = document.getElementById("bottomDisplay");
     const resultsContainer = document.getElementById("resultsContainer");
 
-    // Disable button and show loading
+    // Disable button and show loading while processing
     submitButton.disabled = true;
     submitButton.textContent = "Processing...";
     resultsContainer.innerHTML = "<p>Processing your file...</p>";
