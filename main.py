@@ -1,61 +1,55 @@
 import sys
+import os
+import time
 import xml.etree.ElementTree as ET
 from mutagen.flac import FLAC
 from datetime import timedelta
-from flask import Flask, render_template, url_for, request
-import os
+from flask import Flask, render_template, url_for, request, jsonify
+import xml.etree.ElementTree as ET
+import tempfile
+
 
 app = Flask(__name__)
 @app.route("/", methods=["POST", "GET"])
 
 def index():
     if request.method=="POST":
+
         if 'wrappedUpload' not in request.files:
-            return "No file part in the request", 400
+            return jsonify({'success': False, 'error': 'No file part in the request'}), 400
+        
         uploaded_file = request.files['wrappedUpload']
-        if uploaded_file and uploaded_file.filename.endswith('.xml'):
-            # return f"File '{uploaded_file.filename}' uploaded successfully!"          
-            flac_entries = parse_only_flac_files(uploaded_file)
 
-            #TOP n SONGS
-            top_n_songs = most_played(flac_entries, 5)
-            if top_n_songs:
-                print("\nHere are your Top 5 Songs :")
-                for i, song in enumerate(top_n_songs, 1):
-                    metadata = song['metadata']
-                    print(f"{i}. {metadata['artist']} - {metadata['title']} ({song['play_count']} plays)")
-
-            #TOP n ARTISTS
-            top_n_artists = most_played_artist(flac_entries, 5)
-            if top_n_artists:
-                print("\nHere are your Top 5 Artists in :")
-                for i, (artist, plays) in enumerate(top_n_artists, 1):
-                    print(f"{i}. {artist} ({plays} plays)")
-
-            #TOP n ALBUMS
-            top_n_albums = most_played_albums(flac_entries, 5)
-            if top_n_albums:
-                print("\nHere are your Top 5 Albums in :")
-                for i, (artist, album, plays) in enumerate(top_n_albums, 1):
-                    print(f"{i}. {album} by {artist} ({plays} plays)")
-
-            #TOTAL TIME LISTENED
-            total_time = total_time_played(flac_entries)
-            if total_time:
-                print(f"\nYou have spent {timedelta(seconds=int(total_time))} in total listening on foobar2000.")
+        if uploaded_file.filename == '':
+            return jsonify({'success': False, 'error': 'No file selected'}), 400
             
-            # Show summary statistics
-            if flac_entries:
-                total_plays = sum(entry['play_count'] for entry in flac_entries)
-                successful_reads = sum(1 for entry in flac_entries if 'error' not in entry['metadata'])
-                
-                print(f"\n=== Summary ===")
-                print(f"Total FLAC files: {len(flac_entries)}")
-                print(f"Successfully read metadata: {successful_reads}")
-                print(f"Files with errors: {len(flac_entries) - successful_reads}")
-                print(f"Total plays across all FLAC files: {total_plays}")
-        else:
-            return "Please upload an XML file", 400
+        if not uploaded_file.filename.endswith('.xml'):
+            return jsonify({'success': False, 'error': 'Please upload an XML file'}), 400
+
+        try:
+            with tempfile.NamedTemporaryFile(delete=False, suffix='.xml') as tmp_file:
+                uploaded_file.save(tmp_file.name)
+                xml_file_path = tmp_file.name
+            
+            flac_entries = parse_only_flac_files(xml_file_path)
+            os.unlink(xml_file_path)
+            
+            # Process all the statistics
+            results = process_statistics(flac_entries)
+
+            # return jsonify({
+            #     'success': True,
+            #     'filename': uploaded_file.filename,
+            #     'results': results
+            # })
+            
+            return results
+        
+        except ET.ParseError:
+            return jsonify({'success': False, 'error': 'Invalid XML file format'}), 400
+        
+        except Exception as e:
+            return jsonify({'success': False, 'error': f'Processing error: {str(e)}'}), 500
     else:
         return render_template("index.html")
 
@@ -75,7 +69,7 @@ def get_flac_metadata(file_path):
             'date': audio.get('date', ['Unknown'])[0],
             'genre': audio.get('genre', ['Unknown'])[0],
             'tracknumber': audio.get('tracknumber', [''])[0],
-            'length': audio.info.length,
+            'length': audio.info.length
         }
         return metadata
         
@@ -158,11 +152,26 @@ def total_time_played(flac_entries):
     time = 0
     for entry in valid_entries:
         time = time + entry['metadata']['length']
-    return time
+    return time // 3600  #return in hours
 
+
+def process_statistics(flac_entries):
+    top_songs = most_played(flac_entries, 15)
+    top_artists = most_played_artist(flac_entries, 10)
+    top_albums = most_played_albums(flac_entries, 10)
+    total_time = total_time_played(flac_entries)
+    total_plays = sum(entry['play_count'] for entry in flac_entries)
+    total_files = len(flac_entries)
+
+    return {
+        'top_songs': top_songs,
+        'top_artists': top_artists,
+        'top_albums': top_albums,
+        'total_time': total_time,
+        'total_plays': total_plays,
+        'total_files': total_files
+    }
 
 # Test the function
 if __name__ == "__main__":
     app.run(debug=True)
-
-    

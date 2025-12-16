@@ -6,46 +6,51 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='css/style.css') }}"
     />
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
   </head>
   <body class="uploadBody">
-    <div class="intro">
-      <h1>Foobar2000 Wrapped</h1>
-      <p class="introText">
-        Welcome to Foobar2000 Wrapped. Get detailed information on your local
-        listening habits.
-        <br />
-      </p>
-    </div>
-    <form
-      action="/"
-      method="POST"
-      enctype="multipart/form-data"
-      id="fileSubmitForm"
-      class="fileSubmitForm"
-    >
-      <div>
-        <label for="fileUpload" class="fileUpload"
-          >Upload your exported .xml file here:
-        </label>
-        <br />
-        <input
-          type="file"
-          id="fileUpload"
-          name="wrappedUpload"
-          class="wrappedUpload"
-          accept=".xml"
-        />
-        <br />
-        <button
-          type="submit"
-          id="wrappedSubmit"
-          class="wrappedSubmit"
-          name="wrappedSubmit"
-        >
-          Submit
-        </button>
+    <div class="topUpload">
+      <div class="intro">
+        <h1>Foobar2000 Wrapped</h1>
+        <p class="introText">
+          Welcome to Foobar2000 Wrapped. Get detailed information on your local
+          listening habits.
+          <br />
+        </p>
       </div>
-    </form>
-    <script src="script.js"></script>
+      <form
+        action="/"
+        method="POST"
+        enctype="multipart/form-data"
+        id="fileSubmitForm"
+        class="fileSubmitForm"
+      >
+        <div>
+          <label for="fileUpload" class="fileUpload"
+            >Upload your exported .xml file here:
+          </label>
+          <br />
+          <input
+            type="file"
+            id="fileUpload"
+            name="wrappedUpload"
+            class="wrappedUpload"
+            accept=".xml"
+          />
+          <br />
+          <button
+            type="submit"
+            id="wrappedSubmit"
+            class="wrappedSubmit"
+            name="wrappedSubmit"
+          >
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
+    <div class="bottomDisplay">
+      <h1>test</h1>
+    </div>
   </body>
 </html>

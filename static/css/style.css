@@ -40,3 +40,8 @@ body.uploadBody {
   border-radius: 45px;
   text-align: center;
 }
+
+.bottomDisplay {
+  margin-top: 50px;
+  text-align: center;
+}
