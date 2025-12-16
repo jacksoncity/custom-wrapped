@@ -6,6 +6,8 @@ FLAC FILES ARE THE ONLY ONES THAT WILL READ EXTRA INFORMATION.
 
 However, all file types are counted in the playback statistics; just don't expect to see top albums, artists, etc. if you don't have FLAC files as your primary file type.
 
+Inside is also a test .xml that i took randomly from my computer, please feel free to use it for testing purposes.
+
 Instructions:
 
 - Inside of foobar2000 go to Library > Playback Statistics > Export Statistics > Settings to your liking. (It is recommended to leave all Fields as enabled.)
