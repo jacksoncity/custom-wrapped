@@ -37,13 +37,12 @@ def index():
             # Process all the statistics
             results = process_statistics(flac_entries)
 
-            # return jsonify({
-            #     'success': True,
-            #     'filename': uploaded_file.filename,
-            #     'results': results
-            # })
-            
-            return results
+            return jsonify({
+                'success': True,
+                'filename': uploaded_file.filename,
+                'results': results
+            })
+
         
         except ET.ParseError:
             return jsonify({'success': False, 'error': 'Invalid XML file format'}), 400
@@ -156,21 +155,63 @@ def total_time_played(flac_entries):
 
 
 def process_statistics(flac_entries):
+    # Format top songs
     top_songs = most_played(flac_entries, 15)
+    formatted_songs = []
+    for i, song in enumerate(top_songs, 1):
+        metadata = song['metadata']
+        formatted_songs.append({
+            'rank': i,
+            'artist': metadata['artist'],
+            'title': metadata['title'],
+            'album': metadata['album'],
+            'plays': song['play_count'],
+            'first_played': song.get('first_played', 'N/A'),
+            'last_played': song.get('last_played', 'N/A')
+        })
+    
+    # Format top artists
     top_artists = most_played_artist(flac_entries, 10)
+    formatted_artists = []
+    for i, (artist, plays) in enumerate(top_artists, 1):
+        formatted_artists.append({
+            'rank': i,
+            'artist': artist,
+            'plays': plays
+        })
+    
+    # Format top albums
     top_albums = most_played_albums(flac_entries, 10)
-    total_time = total_time_played(flac_entries)
+    formatted_albums = []
+    for i, (artist, album, plays) in enumerate(top_albums, 1):
+        formatted_albums.append({
+            'rank': i,
+            'artist': artist,
+            'album': album,
+            'plays': plays
+        })
+    
+    # Calculate statistics
+    total_time_hours = total_time_played(flac_entries)
     total_plays = sum(entry['play_count'] for entry in flac_entries)
     total_files = len(flac_entries)
-
+    
+    # Count successful reads
+    valid_entries = validate_flac(flac_entries)
+    successful_reads = len(valid_entries)
+    files_with_errors = total_files - successful_reads
+    
     return {
-        'top_songs': top_songs,
-        'top_artists': top_artists,
-        'top_albums': top_albums,
-        'total_time': total_time,
+        'top_songs': formatted_songs,
+        'top_artists': formatted_artists,
+        'top_albums': formatted_albums,
+        'total_time_hours': total_time_hours,
         'total_plays': total_plays,
-        'total_files': total_files
+        'total_files': total_files,
+        'successful_reads': successful_reads,
+        'files_with_errors': files_with_errors
     }
+
 
 # Test the function
 if __name__ == "__main__":

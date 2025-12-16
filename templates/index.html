@@ -6,7 +6,6 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='css/style.css') }}"
     />
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
   </head>
   <body class="uploadBody">
     <div class="topUpload">
@@ -43,14 +42,16 @@
             id="wrappedSubmit"
             class="wrappedSubmit"
             name="wrappedSubmit"
+            onclick="toggleResults()"
           >
             Submit
           </button>
         </div>
       </form>
     </div>
-    <div class="bottomDisplay">
-      <h1>test</h1>
+    <div class="bottomDisplay" id="bottomDisplay">
+      <div class="resultsContainer" id="resultsContainer"></div>
     </div>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
   </body>
 </html>

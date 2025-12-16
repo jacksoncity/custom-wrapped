@@ -44,4 +44,15 @@ body.uploadBody {
 .bottomDisplay {
   margin-top: 50px;
   text-align: center;
+  background-color: lightslategray;
+  padding: 30px;
+  margin: 35px;
+  border: 5px solid rgb(0, 0, 0);
+  border-style: ridge;
+  display: none;
+}
+
+.rank {
+  font-weight: bold;
+  font-size: 24px;
 }
