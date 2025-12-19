@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Foobar2000 Wrapped</title>
+    <title>Foobar Wrapped</title>
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename='css/style.css') }}"
     />
   </head>
+
   <body class="uploadBody">
     <div class="topUpload">
       <div class="intro">
@@ -17,6 +18,7 @@
           <br />
         </p>
       </div>
+
       <form
         action="/"
         method="POST"
@@ -35,6 +37,7 @@
             name="wrappedUpload"
             class="wrappedUpload"
             accept=".xml"
+            required
           />
           <br />
           <button
@@ -45,12 +48,25 @@
           >
             Submit
           </button>
+          <div
+            id="loadingIndicator"
+            style="display: none"
+            class="loadingIndicator"
+          >
+            <img
+              src="{{ url_for('static', filename='assets/loading.svg') }}"
+              alt="Loading..."
+              class="loading-svg"
+            />
+          </div>
         </div>
       </form>
     </div>
+
     <div class="bottomDisplay" id="bottomDisplay">
       <div class="resultsContainer" id="resultsContainer"></div>
     </div>
+
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
   </body>
 </html>

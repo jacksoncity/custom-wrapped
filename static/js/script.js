@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   const form = document.getElementById("fileSubmitForm");
+  const loadingIndicator = document.getElementById("loadingIndicator");
 
   form.addEventListener("submit", async function (e) {
     e.preventDefault();
@@ -12,6 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Disable button and show loading while processing
     submitButton.disabled = true;
     submitButton.textContent = "Processing...";
+    loadingIndicator.style.display = "block";
     resultsContainer.innerHTML = "<p>Processing your file...</p>";
     bottomDisplay.style.display = "block";
 
@@ -42,6 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
             `;
     } finally {
       // Re-enable button
+      loadingIndicator.style.display = "none";
       submitButton.disabled = false;
       submitButton.textContent = "Submit";
     }
@@ -55,13 +58,12 @@ function displayResults(data) {
   let html = `
         <div class="results">
             <div class="header">
-                <h2>Your Listening Statistics</h2>
-                <p>File: ${data.filename}</p>
-
+                <h1><u>Your Listening Statistics</u></h1>
+                <p>Uploaded File: ${data.filename}</p>
             </div>
             
             <div class="summary">
-                <h3> Summary</h3>
+                <h2><u> Summary </u></h2>
                 <div class="stats-grid">
                     <div class="stat-card">
                         <h4>Total Plays</h4>
@@ -82,7 +84,7 @@ function displayResults(data) {
   // Top Songs
   html += `
         <div class="section">
-            <h3> Top 15 Songs</h3>
+            <h2><u> Top 15 Songs</u></h2>
             <div class="list">
     `;
 
@@ -104,7 +106,7 @@ function displayResults(data) {
   // Top Artists
   html += `
         <div class="section">
-            <h3> Top 10 Artists</h3>
+            <h2><u>Top 10 Artists</u></h2>
             <div class="list">
     `;
 
@@ -126,7 +128,7 @@ function displayResults(data) {
   // Top Albums
   html += `
         <div class="section">
-            <h3> Top 10 Albums</h3>
+            <h2> <u>Top 10 Albums </u></h2>
             <div class="list">
     `;
 
