@@ -14,4 +14,7 @@ Instructions:
 - Execute the Python application and open the link to your localhost in a webbrowser
 - Upload your exported xml file and click submit
 
+![me](https://github.com/jacksoncity/custom-wrapped/blob/main/Timeline%201.gif)
+
+
 Enjoy :)
