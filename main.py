@@ -148,8 +148,8 @@ def total_time_played(flac_entries):
     valid_entries = validate_flac(flac_entries)
     time = 0
     for entry in valid_entries:
-        time = time + entry['metadata']['length']
-    return time // 3600  #return in hours
+        time = time + entry['metadata']['length'] * entry['play_count']
+    return time // 60   #return in minutes
 
 
 def process_statistics(flac_entries):
@@ -189,8 +189,10 @@ def process_statistics(flac_entries):
             'plays': plays
         })
     
+
     # Calculate statistics
-    total_time_hours = total_time_played(flac_entries)
+    total_time_minutes = total_time_played(flac_entries)
+
     total_plays = sum(entry['play_count'] for entry in flac_entries)
     total_files = len(flac_entries)
     
@@ -203,7 +205,7 @@ def process_statistics(flac_entries):
         'top_songs': formatted_songs,
         'top_artists': formatted_artists,
         'top_albums': formatted_albums,
-        'total_time_hours': total_time_hours,
+        'total_time_minutes': total_time_minutes,
         'total_plays': total_plays,
         'total_files': total_files,
         'successful_reads': successful_reads,

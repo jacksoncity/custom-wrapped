@@ -1,0 +1,11 @@
+~ FOR SURE ~ 
+	- breakdown of total minutes play of top artists (listed under plays).
+	- similarly for albums.
+	- downloadable summary page.
+	
+~ MAYBE ~
+	- have all info-card types be a seperate page you can traverse through.
+	- initially have all cards hidden and can be revealed with a button.
+	
+~ UNLIKELY (but would take a lot of work) ~
+	- animated cards that will reveal the data

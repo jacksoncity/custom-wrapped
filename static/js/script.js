@@ -71,7 +71,7 @@ function displayResults(data) {
                     </div>
                     <div class="stat-card">
                         <h4>Time Listened</h4>
-                        <p class="stat-number">${results.total_time_hours} hours</p>
+                        <p class="stat-number">${results.total_time_minutes} Minutes</p>
                     </div>
                     <div class="stat-card">
                         <h4>FLAC Files</h4>
@@ -91,11 +91,11 @@ function displayResults(data) {
   results.top_songs.forEach((song) => {
     html += `
             <div class="list-item">
-                <span class="rank">${song.rank}</span>
+                <span class="rank">${song.rank})</span>
                 <div class="song-info">
                     <strong>${song.artist}</strong> - "${song.title}"
                     <br>
-                    <small>Album: ${song.album} | Plays: ${song.plays}</small>
+                    <small>Album: ${song.album} | <b>Plays: ${song.plays}</b></small>
                 </div>
             </div>
         `;
@@ -113,7 +113,7 @@ function displayResults(data) {
   results.top_artists.forEach((artist) => {
     html += `
             <div class="list-item">
-                <span class="rank">${artist.rank} )</span>
+                <span class="rank">${artist.rank})</span>
                 <div class="artist-info">
                     <strong>${artist.artist}</strong>
                     <br>
@@ -135,7 +135,7 @@ function displayResults(data) {
   results.top_albums.forEach((album) => {
     html += `
             <div class="list-item">
-                <span class="rank">${album.rank}</span>
+                <span class="rank">${album.rank})</span>
                 <div class="album-info">
                     "<strong>${album.album}</strong>" by ${album.artist}
                     <br>
