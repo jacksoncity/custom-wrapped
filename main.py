@@ -1,8 +1,7 @@
-import sys
 import os
 import xml.etree.ElementTree as ET
 from mutagen.flac import FLAC
-from flask import Flask, render_template, url_for, request, jsonify
+from flask import Flask, render_template, request, jsonify
 import xml.etree.ElementTree as ET
 import tempfile
 
@@ -66,7 +65,8 @@ def get_flac_metadata(file_path):
             'date': audio.get('date', ['Unknown'])[0],
             'genre': audio.get('genre', ['Unknown'])[0],
             'tracknumber': audio.get('tracknumber', [''])[0],
-            'length': audio.info.length
+            'length': audio.info.length,
+       
         }
         return metadata
         
@@ -135,13 +135,24 @@ def most_played_artist(flac_entries, n):
 def most_played_albums(flac_entries, n):
     album_plays = {}
     valid_entries = validate_flac(flac_entries)
+
     for entry in valid_entries:
         album = entry['metadata']['album'] #gets album name by 2 dict calls
         artist = entry['metadata']['artist']
+
         album_plays[artist, album] = album_plays.get((artist, album), 0) + entry['play_count'] #adds current plays (or 0 in first time) to the current entries playcount.
+
+
     #creates a tupled list to return so we can have both album and playcount returned
-    album_list = [(artist, album, plays) for (artist, album), plays in album_plays.items()]
-    return sorted(album_list, key=lambda x: x[2], reverse=True)[:n]
+    album_list = [        
+        {
+            'artist': artist,
+            'album': album,
+            'plays': plays,
+        } 
+        for (artist, album), plays in album_plays.items()
+    ]
+    return sorted(album_list, key=lambda x: x['plays'], reverse=True)[:n]
 
 #RETURN TOTAL TIME LISTENED
 def total_time_played(flac_entries):
@@ -181,12 +192,12 @@ def process_statistics(flac_entries):
     # Format top albums
     top_albums = most_played_albums(flac_entries, 10)
     formatted_albums = []
-    for i, (artist, album, plays) in enumerate(top_albums, 1):
+    for i, album_data in enumerate(top_albums, 1):
         formatted_albums.append({
             'rank': i,
-            'artist': artist,
-            'album': album,
-            'plays': plays
+            'artist': album_data['artist'],
+            'album': album_data['album'],
+            'plays': album_data['plays'],
         })
     
 

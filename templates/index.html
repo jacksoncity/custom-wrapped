@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
     <title>Foobar Wrapped</title>
@@ -6,6 +6,7 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='css/style.css') }}"
     />
+    <link rel="icon" href="data:," />
   </head>
 
   <body class="uploadBody">
@@ -65,6 +66,7 @@
 
     <div class="bottomDisplay" id="bottomDisplay">
       <div class="resultsContainer" id="resultsContainer"></div>
+      <button id="myButton">Click to change text</button>
     </div>
 
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>

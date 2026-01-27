@@ -54,8 +54,11 @@ document.addEventListener("DOMContentLoaded", function () {
 function displayResults(data) {
   const results = data.results;
   const container = document.getElementById("resultsContainer");
+  const button = document.getElementById("myButton");
+  const page = [];
+  let currentIndex = 0;
 
-  let html = `
+  let pageOne = `
         <div class="results">
             <div class="header">
                 <h1><u>Your Listening Statistics</u></h1>
@@ -79,17 +82,19 @@ function displayResults(data) {
                     </div>
                 </div>
             </div>
+        </div>
     `;
+  page.push(pageOne);
 
   // Top Songs
-  html += `
+  let pageTwo = `
         <div class="section">
             <h2><u> Top 15 Songs</u></h2>
             <div class="list">
     `;
 
   results.top_songs.forEach((song) => {
-    html += `
+    pageTwo += `
             <div class="list-item">
                 <span class="rank">${song.rank})</span>
                 <div class="song-info">
@@ -101,17 +106,18 @@ function displayResults(data) {
         `;
   });
 
-  html += `</div></div>`;
+  pageTwo += `</div></div>`;
+  page.push(pageTwo);
 
   // Top Artists
-  html += `
+  let pageThree = `
         <div class="section">
             <h2><u>Top 10 Artists</u></h2>
             <div class="list">
     `;
 
   results.top_artists.forEach((artist) => {
-    html += `
+    pageThree += `
             <div class="list-item">
                 <span class="rank">${artist.rank})</span>
                 <div class="artist-info">
@@ -123,29 +129,36 @@ function displayResults(data) {
         `;
   });
 
-  html += `</div></div>`;
+  pageThree += `</div></div>`;
+  page.push(pageThree);
 
   // Top Albums
-  html += `
+  let pageFour = `
         <div class="section">
             <h2> <u>Top 10 Albums </u></h2>
             <div class="list">
     `;
 
   results.top_albums.forEach((album) => {
-    html += `
-            <div class="list-item">
-                <span class="rank">${album.rank})</span>
-                <div class="album-info">
-                    "<strong>${album.album}</strong>" by ${album.artist}
-                    <br>
-                    <small>${album.plays} plays</small>
-                </div>
+    pageFour += `
+        <div class="list-item">
+            <span class="rank">${album.rank})</span>
+            <div class="album-info">
+                "<strong>${album.album}</strong>" by ${album.artist}
+                <br>
+                <small>${album.plays} plays</small>
             </div>
-        `;
+        </div>
+    `;
   });
 
-  html += `</div></div></div>`;
+  pageFour += `</div></div></div>`;
+  page.push(pageFour);
 
-  container.innerHTML = html;
+  container.innerHTML = page[0];
+
+  button.onclick = function () {
+    currentIndex = (currentIndex + 1) % page.length;
+    container.innerHTML = page[currentIndex];
+  };
 }
