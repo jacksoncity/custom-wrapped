@@ -54,6 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
 function displayResults(data) {
   const results = data.results;
   const container = document.getElementById("resultsContainer");
+  const backgroundElement = document.getElementById("bottomDisplay");
   const button = document.getElementById("myButton");
   const page = [];
   let currentIndex = 0;
@@ -155,10 +156,32 @@ function displayResults(data) {
   pageFour += `</div></div></div>`;
   page.push(pageFour);
 
+  backgrounds = [
+    "url('/static/assets/bg-test.png')",
+    "url('/static/assets/bg-test-1.png')",
+    "url('/static/assets/bg-test-2.png')",
+  ];
+
   container.innerHTML = page[0];
+  backgroundElement.style.backgroundImage = backgrounds[0];
 
   button.onclick = function () {
-    currentIndex = (currentIndex + 1) % page.length;
-    container.innerHTML = page[currentIndex];
+    // Fade out
+    backgroundElement.style.opacity = "0";
+    backgroundElement.style.transition = "opacity 0.5s ease-out";
+    container.style.opacity = "0";
+    container.style.transition = "opacity 0.5s ease-out";
+
+    setTimeout(() => {
+      // Change content
+      currentIndex = (currentIndex + 1) % page.length;
+      backgroundElement.style.backgroundImage =
+        backgrounds[currentIndex % backgrounds.length];
+      container.innerHTML = page[currentIndex];
+
+      // Fade in
+      container.style.opacity = "1";
+      backgroundElement.style.opacity = "1";
+    }, 500); // Match the transition duration
   };
 }
