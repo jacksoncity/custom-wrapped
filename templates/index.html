@@ -69,7 +69,12 @@
 
     <div class="bottomDisplay" id="bottomDisplay">
       <div class="resultsContainer" id="resultsContainer"></div>
-      <button id="myButton">Next Page -></button>
+      <button id="myButton" class="nextBtn">
+        <img
+          src="{{ url_for('static', filename='assets/holo-next.png') }}"
+          alt="Next"
+        />
+      </button>
     </div>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
   </body>

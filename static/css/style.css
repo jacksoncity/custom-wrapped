@@ -7,7 +7,6 @@
 }
 
 body.uploadBody {
-  /* background-color: cornflowerblue; */
   background-image: url(../assets/main-bg-5.jpg);
   background-repeat: no-repeat;
   background-size: cover;
@@ -57,11 +56,13 @@ body.uploadBody {
   margin-top: 25px;
   font-size: 16px;
   text-align: center;
+  cursor: pointer;
 }
 
 .wrappedSubmit {
-  height: 250px;
-  width: 550px;
+  height: 175px;
+  width: auto;
+  margin-top: 75px;
   border: none;
   background: transparent;
   transition: opacity 0.3s ease;
@@ -78,19 +79,38 @@ body.uploadBody {
   object-fit: contain;
 }
 
+.error {
+  color: whitesmoke;
+}
+
 .bottomDisplay {
   margin-top: 50px;
   text-align: center;
-  /* background-color: lightslategray; */
-  /* background-image: url(../assets/bg-test.png); */
   background-size: 100% 100%;
   background-position: center;
   background-repeat: no-repeat;
   padding: 30px;
   margin: 35px;
-  /* border: 5px solid rgb(0, 0, 0); */
-  /* border-style: ridge; */
   display: none;
+}
+
+.nextBtn {
+  height: 125px;
+  width: auto;
+  border: none;
+  background: transparent;
+  transition: opacity 0.3s ease;
+}
+
+.nextBtn:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.nextBtn img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .rank {
@@ -100,11 +120,9 @@ body.uploadBody {
 
 .section,
 .summary {
-  /* border: 5px solid rgba(0, 0, 0, 0.534); */
   padding: 20px;
   margin: 10px;
   font-size: 24px;
-  /* background-color: rgb(158, 170, 182); */
 }
 
 .loading-svg {

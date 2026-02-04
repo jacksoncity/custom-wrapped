@@ -13,7 +13,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // Disable button and show loading while processing
     submitButton.disabled = true;
     loadingIndicator.style.display = "block";
-    resultsContainer.innerHTML = "<p>Processing your file...</p>";
+    resultsContainer.innerHTML =
+      '<p style="color: white;">Processing your file...</p>';
     bottomDisplay.style.display = "block";
 
     try {
