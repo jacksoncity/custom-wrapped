@@ -47,7 +47,10 @@
             class="wrappedSubmit"
             name="wrappedSubmit"
           >
-            Submit
+            <img
+              src="{{ url_for('static', filename='assets/holo-start.png') }}"
+              alt="Submit"
+            />
           </button>
           <div
             id="loadingIndicator"
@@ -66,9 +69,8 @@
 
     <div class="bottomDisplay" id="bottomDisplay">
       <div class="resultsContainer" id="resultsContainer"></div>
-      <button id="myButton">Click to change text</button>
+      <button id="myButton">Next Page -></button>
     </div>
-
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
   </body>
 </html>

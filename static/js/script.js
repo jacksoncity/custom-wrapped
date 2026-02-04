@@ -12,7 +12,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Disable button and show loading while processing
     submitButton.disabled = true;
-    submitButton.textContent = "Processing...";
     loadingIndicator.style.display = "block";
     resultsContainer.innerHTML = "<p>Processing your file...</p>";
     bottomDisplay.style.display = "block";
@@ -46,7 +45,6 @@ document.addEventListener("DOMContentLoaded", function () {
       // Re-enable button
       loadingIndicator.style.display = "none";
       submitButton.disabled = false;
-      submitButton.textContent = "Submit";
     }
   });
 });
@@ -62,23 +60,23 @@ function displayResults(data) {
   let pageOne = `
         <div class="results">
             <div class="header">
-                <h1><u>Your Listening Statistics</u></h1>
+                <h1>Your Listening Statistics</h1>
                 <p>Uploaded File: ${data.filename}</p>
             </div>
             
             <div class="summary">
-                <h2><u> Summary </u></h2>
+                <h2> Summary </h2>
                 <div class="stats-grid">
                     <div class="stat-card">
-                        <h4>Total Plays</h4>
+                        <h4>Total Plays:</h4>
                         <p class="stat-number">${results.total_plays}</p>
                     </div>
                     <div class="stat-card">
-                        <h4>Time Listened</h4>
+                        <h4>Time Listened:</h4>
                         <p class="stat-number">${results.total_time_minutes} Minutes</p>
                     </div>
                     <div class="stat-card">
-                        <h4>FLAC Files</h4>
+                        <h4>FLAC Files:</h4>
                         <p class="stat-number">${results.total_files}</p>
                     </div>
                 </div>
@@ -90,7 +88,7 @@ function displayResults(data) {
   // Top Songs
   let pageTwo = `
         <div class="section">
-            <h2><u> Top 15 Songs</u></h2>
+            <h2> Top 15 Songs</h2>
             <div class="list">
     `;
 
@@ -103,6 +101,7 @@ function displayResults(data) {
                     <br>
                     <small>Album: ${song.album} | <b>Plays: ${song.plays}</b></small>
                 </div>
+                <br>
             </div>
         `;
   });
@@ -113,7 +112,7 @@ function displayResults(data) {
   // Top Artists
   let pageThree = `
         <div class="section">
-            <h2><u>Top 10 Artists</u></h2>
+            <h2>Top 10 Artists</h2>
             <div class="list">
     `;
 
@@ -136,7 +135,7 @@ function displayResults(data) {
   // Top Albums
   let pageFour = `
         <div class="section">
-            <h2> <u>Top 10 Albums </u></h2>
+            <h2> Top 10 Albums </h2>
             <div class="list">
     `;
 

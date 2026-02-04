@@ -71,7 +71,7 @@ def get_flac_metadata(file_path):
         return metadata
         
     except Exception as e:
-        return {"error": str(e)}
+        return {"error": f"Could not read metadata: {str(e)}"}
 
 def parse_only_flac_files(xml_file_path):
     """Parse XML and extract FLAC metadata ONLY for the .flac files"""
