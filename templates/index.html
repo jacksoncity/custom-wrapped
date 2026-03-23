@@ -52,27 +52,23 @@
               alt="Submit"
             />
           </button>
-          <div
-            id="loadingIndicator"
-            style="display: none"
-            class="loadingIndicator"
-          >
-            <img
-              src="{{ url_for('static', filename='assets/loading.svg') }}"
-              alt="Loading..."
-              class="loading-svg"
-            />
-          </div>
+          <div id="loadingIndicator" style="display: none" class="loader"></div>
         </div>
       </form>
     </div>
 
     <div class="bottomDisplay" id="bottomDisplay">
       <div class="resultsContainer" id="resultsContainer"></div>
-      <button id="myButton" class="nextBtn">
+      <button id="myButtonNext" class="nextBtn">
         <img
-          src="{{ url_for('static', filename='assets/holo-next.png') }}"
+          src="{{ url_for('static', filename='assets/holo-next-v2.png') }}"
           alt="Next"
+        />
+      </button>
+      <button id="myButtonBack" class="backBtn">
+        <img
+          src="{{ url_for('static', filename='assets/holo-back-v2.png') }}"
+          alt="Back"
         />
       </button>
     </div>

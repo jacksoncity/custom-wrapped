@@ -20,11 +20,16 @@ body.uploadBody {
   text-align: center;
   margin-top: 30px;
   color: #167d94;
-  text-shadow:
-    -1px -1px 0 #ffffff,
-    1px -1px 0 #ffffff,
-    -1px 1px 0 #ffffff,
-    1px 1px 0 #ffffff;
+  padding: 5px;
+
+  -webkit-text-stroke: 5px transparent;
+  paint-order: stroke fill;
+  background: url("../assets/holo-texture.jpg");
+  background-size: cover;
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  filter: drop-shadow(3px 3px rgba(255, 255, 255, 0.5));
 }
 
 .introText {
@@ -45,11 +50,16 @@ body.uploadBody {
   font-size: 24px;
   text-align: center;
   color: #167d94;
-  text-shadow:
-    -1px -1px 0 #ffffff,
-    1px -1px 0 #ffffff,
-    -1px 1px 0 #ffffff,
-    1px 1px 0 #ffffff;
+  padding: 5px;
+
+  -webkit-text-stroke: 5px transparent;
+  paint-order: stroke fill;
+  background: url("../assets/holo-texture.jpg");
+  background-size: cover;
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  filter: drop-shadow(3px 3px 6px rgba(255, 255, 255, 0.5));
 }
 
 .wrappedUpload {
@@ -95,10 +105,14 @@ body.uploadBody {
 }
 
 .nextBtn {
-  height: 125px;
+  visibility: hidden;
+  height: 100px;
   width: auto;
   border: none;
   background: transparent;
+  position: fixed;
+  bottom: 7%;
+  right: 5%;
   transition: opacity 0.3s ease;
 }
 
@@ -108,6 +122,29 @@ body.uploadBody {
 }
 
 .nextBtn img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.backBtn {
+  visibility: hidden;
+  height: 100px;
+  width: auto;
+  border: none;
+  background: transparent;
+  position: fixed;
+  bottom: 7%;
+  left: 5%;
+  transition: opacity 0.3s ease;
+}
+
+.backBtn:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.backBtn img {
   width: 100%;
   height: 100%;
   object-fit: contain;
@@ -130,6 +167,35 @@ body.uploadBody {
   height: 100px;
   margin: 15px auto;
   display: block;
+}
+
+/* HTML: <div class="loader"></div> */
+.loader {
+  width: fit-content;
+  font-weight: bold;
+  font-family: monospace;
+  color: #1a92ad;
+  text-shadow:
+    0 0 0 rgb(255 0 0),
+    0 0 0 rgb(0 255 0),
+    0 0 0 rgb(0 0 255);
+  font-size: 45px;
+  animation: l32 1s infinite cubic-bezier(0.5, -2000, 0.5, 2000);
+  display: block;
+  margin: 15px auto;
+}
+.loader:before {
+  content: "Loading...";
+}
+
+@keyframes l32 {
+  25%,
+  100% {
+    text-shadow:
+      0.03px -0.01px 0.01px rgb(255 0 0),
+      0.02px 0.02px 0 rgb(0 255 0),
+      -0.02px 0.02px 0 rgb(0 0 255);
+  }
 }
 
 .artist-info,

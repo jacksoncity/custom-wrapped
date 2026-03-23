@@ -54,7 +54,10 @@ function displayResults(data) {
   const results = data.results;
   const container = document.getElementById("resultsContainer");
   const backgroundElement = document.getElementById("bottomDisplay");
-  const button = document.getElementById("myButton");
+  const buttonNext = document.getElementById("myButtonNext");
+  const buttonBack = document.getElementById("myButtonBack");
+  buttonNext.style.visibility = "visible";
+  buttonBack.style.visibility = "visible";
   const page = [];
   let currentIndex = 0;
 
@@ -157,15 +160,16 @@ function displayResults(data) {
   page.push(pageFour);
 
   backgrounds = [
-    "url('/static/assets/bg-test.png')",
+    // "url('/static/assets/bg-test.png')",
     "url('/static/assets/bg-test-1.png')",
-    "url('/static/assets/bg-test-2.png')",
+    // "url('/static/assets/bg-test-2.png')",
   ];
 
   container.innerHTML = page[0];
   backgroundElement.style.backgroundImage = backgrounds[0];
+  backgroundElement.style.opacity = "0.85";
 
-  button.onclick = function () {
+  buttonNext.onclick = function () {
     // Fade out
     backgroundElement.style.opacity = "0";
     backgroundElement.style.transition = "opacity 0.5s ease-out";
@@ -181,7 +185,7 @@ function displayResults(data) {
 
       // Fade in
       container.style.opacity = "1";
-      backgroundElement.style.opacity = "1";
+      backgroundElement.style.opacity = "0.85";
     }, 500); // Match the transition duration
   };
 }
