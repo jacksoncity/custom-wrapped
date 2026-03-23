@@ -176,9 +176,9 @@ body.uploadBody {
   font-family: monospace;
   color: #1a92ad;
   text-shadow:
-    0 0 0 rgb(255 0 0),
-    0 0 0 rgb(0 255 0),
-    0 0 0 rgb(0 0 255);
+    0 0 0 rgb(227, 227, 0),
+    0 0 0 rgb(34, 95, 72),
+    0 0 0 rgb(0, 117, 129);
   font-size: 45px;
   animation: l32 1s infinite cubic-bezier(0.5, -2000, 0.5, 2000);
   display: block;
@@ -192,9 +192,9 @@ body.uploadBody {
   25%,
   100% {
     text-shadow:
-      0.03px -0.01px 0.01px rgb(255 0 0),
-      0.02px 0.02px 0 rgb(0 255 0),
-      -0.02px 0.02px 0 rgb(0 0 255);
+      0.03px -0.01px 0.01px rgb(227, 227, 0),
+      0.02px 0.02px 0 rgb(34, 95, 72),
+      -0.02px 0.02px 0 rgb(0, 117, 129);
   }
 }
 
@@ -204,4 +204,20 @@ body.uploadBody {
   font-size: 24px;
   margin-top: 10px;
   margin-bottom: 20px;
+}
+
+.list-item:nth-child(1) .rank {
+  color: rgb(238, 194, 0);
+  font-size: 65px;
+}
+.list-item:nth-child(2) .rank {
+  color: rgb(104, 104, 104);
+  font-size: 55px;
+}
+.list-item:nth-child(3) .rank {
+  color: #8d5b1a;
+  font-size: 45px;
+}
+.list-item .rank {
+  font-size: 30px;
 }

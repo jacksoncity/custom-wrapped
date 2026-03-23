@@ -57,7 +57,6 @@ function displayResults(data) {
   const buttonNext = document.getElementById("myButtonNext");
   const buttonBack = document.getElementById("myButtonBack");
   buttonNext.style.visibility = "visible";
-  buttonBack.style.visibility = "visible";
   const page = [];
   let currentIndex = 0;
 
@@ -119,7 +118,6 @@ function displayResults(data) {
             <h2>Top 10 Artists</h2>
             <div class="list">
     `;
-
   results.top_artists.forEach((artist) => {
     pageThree += `
             <div class="list-item">
@@ -152,6 +150,7 @@ function displayResults(data) {
                 <br>
                 <small>${album.plays} plays</small>
             </div>
+            <br>
         </div>
     `;
   });
@@ -164,7 +163,6 @@ function displayResults(data) {
     "url('/static/assets/bg-test-1.png')",
     // "url('/static/assets/bg-test-2.png')",
   ];
-
   container.innerHTML = page[0];
   backgroundElement.style.backgroundImage = backgrounds[0];
   backgroundElement.style.opacity = "0.85";
@@ -181,6 +179,34 @@ function displayResults(data) {
       currentIndex = (currentIndex + 1) % page.length;
       backgroundElement.style.backgroundImage =
         backgrounds[currentIndex % backgrounds.length];
+      container.innerHTML = page[currentIndex];
+      if (currentIndex > 0) {
+        buttonBack.style.visibility = "visible";
+      } else {
+        buttonBack.style.visibility = "hidden";
+      }
+      // Fade in
+      container.style.opacity = "1";
+      backgroundElement.style.opacity = "0.85";
+    }, 500); // Match the transition duration
+  };
+
+  buttonBack.onclick = function () {
+    // Fade out
+    backgroundElement.style.opacity = "0";
+    backgroundElement.style.transition = "opacity 0.5s ease-out";
+    container.style.opacity = "0";
+    container.style.transition = "opacity 0.5s ease-out";
+
+    setTimeout(() => {
+      // Change content
+      if (currentIndex - 1 > 0) {
+        buttonBack.style.visibility = "visible";
+      } else {
+        buttonBack.style.visibility = "hidden";
+      }
+      currentIndex = (currentIndex - 1) % page.length;
+      backgroundElement.style.backgroundImage = backgrounds[currentIndex - 1];
       container.innerHTML = page[currentIndex];
 
       // Fade in
