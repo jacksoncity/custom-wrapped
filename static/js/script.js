@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
     submitButton.disabled = true;
     loadingIndicator.style.display = "block";
     resultsContainer.innerHTML =
-      '<p style="color: white;">Processing your file...</p>';
+      '<p style="color: white; font-size: 35px;">Processing your file...</p>';
     bottomDisplay.style.display = "block";
 
     try {
@@ -63,12 +63,11 @@ function displayResults(data) {
   let pageOne = `
         <div class="results">
             <div class="header">
-                <h1>Your Listening Statistics</h1>
+                <p class="summary-title">Your Listening Statistics</p>
                 <p>Uploaded File: ${data.filename}</p>
             </div>
-            
             <div class="summary">
-                <h2> Summary </h2>
+                <b><p class="summary-title"> Summary </p></b>
                 <div class="stats-grid">
                     <div class="stat-card">
                         <h4>Total Plays:</h4>
@@ -82,6 +81,9 @@ function displayResults(data) {
                         <h4>FLAC Files:</h4>
                         <p class="stat-number">${results.total_files}</p>
                     </div>
+                    <div class="stat-card">
+                        <h4>Other Files: </h4>
+                        <p class="stat-number">${results.skipped_files}</p>
                 </div>
             </div>
         </div>
@@ -91,7 +93,7 @@ function displayResults(data) {
   // Top Songs
   let pageTwo = `
         <div class="section">
-            <h2> Top 15 Songs</h2>
+            <p class="summary-title"> Top 15 Songs</p>
             <div class="list">
     `;
 
@@ -160,7 +162,7 @@ function displayResults(data) {
 
   backgrounds = [
     // "url('/static/assets/bg-test.png')",
-    "url('/static/assets/bg-test-1.png')",
+    "url('/static/assets/bg-test-1-v2.png')",
     // "url('/static/assets/bg-test-2.png')",
   ];
   container.innerHTML = page[0];

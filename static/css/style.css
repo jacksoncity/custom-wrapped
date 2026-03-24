@@ -7,7 +7,7 @@
 }
 
 body.uploadBody {
-  background-image: url(../assets/main-bg-5.jpg);
+  background-image: url(../assets/main-bg-5-blur.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   display: block;
@@ -116,6 +116,32 @@ body.uploadBody {
   transition: opacity 0.3s ease;
 }
 
+.summary-title {
+  font-size: 45px;
+
+  -webkit-text-stroke: 5px transparent;
+  paint-order: stroke fill;
+  background: url("../assets/holo-texture.jpg");
+  background-size: cover;
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  filter: drop-shadow(3px 3px rgba(255, 255, 255, 0.5));
+}
+
+summary-text {
+  font-size: 30px;
+
+  -webkit-text-stroke: 5px transparent;
+  paint-order: stroke fill;
+  background: url("../assets/holo-texture.jpg");
+  background-size: cover;
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  filter: drop-shadow(3px 3px rgba(255, 255, 255, 0.5));
+}
+
 .nextBtn:hover {
   cursor: pointer;
   opacity: 0.7;
@@ -176,7 +202,7 @@ body.uploadBody {
   font-family: monospace;
   color: #1a92ad;
   text-shadow:
-    0 0 0 rgb(227, 227, 0),
+    0 0 0 rgb(128, 128, 0),
     0 0 0 rgb(34, 95, 72),
     0 0 0 rgb(0, 117, 129);
   font-size: 45px;
@@ -192,10 +218,15 @@ body.uploadBody {
   25%,
   100% {
     text-shadow:
-      0.03px -0.01px 0.01px rgb(227, 227, 0),
+      0.03px -0.01px 0.01px rgb(128, 128, 0),
       0.02px 0.02px 0 rgb(34, 95, 72),
       -0.02px 0.02px 0 rgb(0, 117, 129);
   }
+}
+
+.resultsContainer {
+  min-height: 700px;
+  padding: 50px;
 }
 
 .artist-info,

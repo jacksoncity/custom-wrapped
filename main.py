@@ -4,6 +4,8 @@ from mutagen.flac import FLAC
 from flask import Flask, render_template, url_for, request, jsonify
 import xml.etree.ElementTree as ET
 import tempfile
+from concurrent.futures import ThreadPoolExecutor, as_completed
+
 
 
 app = Flask(__name__)
@@ -28,11 +30,11 @@ def index():
                 uploaded_file.save(tmp_file.name)
                 xml_file_path = tmp_file.name
             
-            flac_entries = parse_only_flac_files(xml_file_path)
+            flac_entries, skipped_files = parse_only_flac_files(xml_file_path)
             os.unlink(xml_file_path)
             
             # Process all the statistics
-            results = process_statistics(flac_entries)
+            results = process_statistics(flac_entries, skipped_files)
 
             return jsonify({
                 'success': True,
@@ -86,21 +88,27 @@ def parse_only_flac_files(xml_file_path):
         
         # ONLY process FLAC files - skip everything else
         if file_path.lower().endswith('.flac'):
-            entry_data = {
+            flac_entries.append ({
                 'id': entry.get('ID'),
                 'play_count': int(entry.get('Count', 0)),
                 'first_played': entry.get('FirstPlayedFriendly'),
                 'last_played': entry.get('LastPlayedFriendly'),
                 'file_path': file_path,
-                'metadata': get_flac_metadata(file_path)
-            }
-            flac_entries.append(entry_data)
+            })
         else:
             skipped_files += 1
+
+        def fetch(entry):
+            entry['metadata'] = get_flac_metadata(entry['file_path'])
+            return entry
+    with ThreadPoolExecutor(max_workers=8) as executor:
+        flac_entries = list(executor.map(fetch, flac_entries))
+        # Grabs metadata from all entries using threads to speed up processing speeds on webserver
+
     print(f"Processed {len(flac_entries)} FLAC files")
     print(f"Skipped {skipped_files} non-FLAC files")
     
-    return flac_entries
+    return flac_entries, skipped_files
 
 #all checking and validating
 def validate_flac(flac_entries):
@@ -163,7 +171,7 @@ def total_time_played(flac_entries):
     return time // 60   #return in minutes
 
 
-def process_statistics(flac_entries):
+def process_statistics(flac_entries, skipped_files):
     # Format top songs
     top_songs = most_played(flac_entries, 15)
     formatted_songs = []
@@ -211,7 +219,7 @@ def process_statistics(flac_entries):
     valid_entries = validate_flac(flac_entries)
     successful_reads = len(valid_entries)
     files_with_errors = total_files - successful_reads
-    
+
     return {
         'top_songs': formatted_songs,
         'top_artists': formatted_artists,
@@ -220,7 +228,8 @@ def process_statistics(flac_entries):
         'total_plays': total_plays,
         'total_files': total_files,
         'successful_reads': successful_reads,
-        'files_with_errors': files_with_errors
+        'files_with_errors': files_with_errors,
+        'skipped_files': skipped_files
     }
 
 
